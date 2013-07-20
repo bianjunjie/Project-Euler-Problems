@@ -1,25 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# Author: Junjie Bian
-# File Name: commonFunc.py
-# Description: 
-
 import math
-'''
-Check if a number is  a palindromic number
-'''
-def isPali(num):
-    n=str(num)
-    while len(n)>1:
-	if n[0]!=n[-1]:
-	    return False
-	n=n[1:-1]
-    return True
 
-
-'''
-Expand to continous fration representation
-'''
 #
 #\frac{c}{sqrt(a) - b}
 def getnext(a,b,c):
@@ -50,13 +30,17 @@ def expand(n):
         a = new_a
         b = new_b
         c = new_c
-    return r
+#    print r,loop
+    return len(r)-1
+
+odd = 0
+for i in range(2,10000+1):
+    real = int(math.sqrt(i))
+    if real*real == i: continue
+    if expand(i)%2==1: odd = odd+1
+print odd
 
 
-def GCD(x,y):
-    if x==1 or y==1: return 1
-    if x==y: return x
-    if x>y: return GCD(y,x)
-    if y%x==0: return x
-    return GCD(y%x, x)
+
     
+

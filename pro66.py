@@ -4,31 +4,54 @@
 # File Name: pro66.py
 # Description: 
 import math
-def issq(n):
-    m=math.sqrt(n)
-    m=int(m)
-    return (m*m)==n
+import commonFunc as cf
 
 
-max_sq=-1
-max_d=-1
-for d in range(2,1001):
-    if issq(d):
-	continue
-    y=1
+def is_square(n):
+    m = int(math.sqrt(n))
+    if m*m == n: return True
+    return False
+
+
+#
+# Calculate a[0]+1/(a[1]+1/(a[2]+...))
+def cal_fraction(a):
+    if len(a)==1: 
+        h,k=a[0],1
+        return h,k
+    hh,kk = cal_fraction(a[1:])
+    h,k=kk+a[0]*hh,hh
+    g = cf.GCD(h,k)
+    if g>1:
+        h /= g
+        k /= g
+    return h,k
+
+#solve x^2-d*y^2=1
+#
+def solve_dio(d):
+    r = cf.expand(d)
+    h = r[0]
+    k = r[1]
+    if h*h-d*k*k==1: return h,k
+
+    l = [r[0]]
+    n = 1
     while True:
-	n_sq=d*y*y+1
-	if issq(n_sq):
-	    print d,n_sq,math.sqrt(n_sq)
-	    if math.sqrt(n_sq)>max_sq:
-		max_sq=math.sqrt(n_sq)
-		max_d=d
-	    break
-	y+=1
-    
-
-print max_sq,max_d
+        if n==len(r): n = 1
+        l.append(r[n])
+        n += 1
+        h,k = cal_fraction(l)
+        if h*h-d*k*k==1: return h,k
+    return -1,-1
 
 
+max_x = -1
+for d in xrange(2,1000):
+    if is_square(d): continue
+    x,y=solve_dio(d)
+    print d,x,y
+    if x>max_x: max_x = x
+print max_x
 
-    
+ 
