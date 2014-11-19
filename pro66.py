@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: Junjie Bian
 # File Name: pro66.py
-# Description: 
+# Description: see Pell's equation, http://en.wikipedia.org/wiki/Pell%27s_equation
 import math
 import commonFunc as cf
 
@@ -47,11 +47,14 @@ def solve_dio(d):
 
 
 max_x = -1
+max_d = -1
 for d in xrange(2,1000):
     if is_square(d): continue
     x,y=solve_dio(d)
     print d,x,y
-    if x>max_x: max_x = x
-print max_x
+    if x>max_x: 
+        max_x = x
+        max_d = d
+print max_x, max_d
 
  

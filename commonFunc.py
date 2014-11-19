@@ -5,6 +5,7 @@
 # Description: 
 
 import math
+from datetime import *
 '''
 Check if a number is  a palindromic number
 '''
@@ -60,3 +61,11 @@ def GCD(x,y):
     if y%x==0: return x
     return GCD(y%x, x)
     
+def timeit(func):
+    def inner(*args,**kargs):
+        start = datetime.now()
+        ret = func(*args, **kargs)
+        end = datetime.now()
+        print "time cost: ", end - start
+        return ret
+    return inner
